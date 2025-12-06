@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://imqy8hsumemq"]
+
+[ext_resource type="PackedScene" uid="uid://d3bi8xdsrkt10" path="res://scenes/collectibles/collectible.tscn" id="1_ku7o5"]
+[ext_resource type="SpriteFrames" uid="uid://43r8m860dljr" path="res://data/sprite_frames/bronze_coin_sprite_frames.tres" id="2_76gyj"]
+
+[node name="CoinCollectible" instance=ExtResource("1_ku7o5")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = ExtResource("2_76gyj")
+frame_progress = 0.0

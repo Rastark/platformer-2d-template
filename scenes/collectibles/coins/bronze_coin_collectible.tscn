@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvx3cipfpveb8"]
+
+[ext_resource type="PackedScene" uid="uid://imqy8hsumemq" path="res://scenes/collectibles/coins/coin_collectible.tscn" id="1_psfuc"]
+
+[node name="BronzeCoinCollectible" instance=ExtResource("1_psfuc")]

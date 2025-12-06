@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1uqgu0uf0j85"]
+
+[ext_resource type="PackedScene" uid="uid://cp0mugwto4a68" path="res://scenes/enemy_characters/enemy_character.tscn" id="1_5nwhm"]
+
+[node name="SlimeEnemyCharacter" instance=ExtResource("1_5nwhm")]
+knocks_back = true

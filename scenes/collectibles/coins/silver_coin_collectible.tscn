@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://clarqqtwrfpf2"]
+
+[ext_resource type="PackedScene" uid="uid://imqy8hsumemq" path="res://scenes/collectibles/coins/coin_collectible.tscn" id="1_gruuu"]
+[ext_resource type="SpriteFrames" uid="uid://baq72kwbm82g5" path="res://data/sprite_frames/silver_coin_sprite_frames.tres" id="2_gruuu"]
+
+[node name="SilverCoinCollectible" instance=ExtResource("1_gruuu")]
+score_value = 5
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = ExtResource("2_gruuu")

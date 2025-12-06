@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bp86yp4p5lhnb"]
+
+[ext_resource type="PackedScene" uid="uid://imqy8hsumemq" path="res://scenes/collectibles/coins/coin_collectible.tscn" id="1_5xr45"]
+[ext_resource type="SpriteFrames" uid="uid://1lvr0qi3yy8t" path="res://data/sprite_frames/gold_coin_sprite_frames.tres" id="2_5xr45"]
+
+[node name="GoldCoinCollectible" instance=ExtResource("1_5xr45")]
+score_value = 10
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = ExtResource("2_5xr45")

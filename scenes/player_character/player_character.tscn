@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://sylyhk18yl4b"]
+
+[ext_resource type="Script" uid="uid://qwsocyrl2ixo" path="res://scenes/player_character/player_character.gd" id="1_4l8wl"]
+[ext_resource type="Texture2D" uid="uid://cwg77j6colree" path="res://assets/sprites/player_character/character_purple_hit.png" id="2_brvwx"]
+[ext_resource type="Texture2D" uid="uid://dpdb4h63lopnj" path="res://assets/sprites/player_character/character_purple_idle.png" id="3_tphbk"]
+[ext_resource type="Texture2D" uid="uid://brseou4ern6ub" path="res://assets/sprites/player_character/character_purple_jump.png" id="4_h02cf"]
+[ext_resource type="Texture2D" uid="uid://dlhea802pwalb" path="res://assets/sprites/player_character/character_purple_walk_a.png" id="5_df1lu"]
+[ext_resource type="Texture2D" uid="uid://e3ttv26wr2o1" path="res://assets/sprites/player_character/character_purple_walk_b.png" id="6_aome0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iav0o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_brvwx")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tphbk")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_h02cf")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_df1lu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_aome0")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s8va5"]
+radius = 40.76
+height = 104.0
+
+[node name="PlayerCharacter" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 15
+script = ExtResource("1_4l8wl")
+knockback_angle_correction = 0.19999999999999996
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_iav0o")
+animation = &"walk"
+frame_progress = 0.081161916
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_bottom = 720
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 13)
+shape = SubResource("CapsuleShape2D_s8va5")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.25
+one_shot = true

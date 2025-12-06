@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://43r8m860dljr"]
+
+[ext_resource type="Texture2D" uid="uid://i16eqlijtltn" path="res://assets/sprites/spritesheets/spritesheet-tiles-default.png" id="1_257tb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sk5k4"]
+atlas = ExtResource("1_257tb")
+region = Rect2(1040, 65, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oc4kc"]
+atlas = ExtResource("1_257tb")
+region = Rect2(1105, 65, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sk5k4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oc4kc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3bi8xdsrkt10"]
+
+[ext_resource type="Script" uid="uid://ddxni7yty5cwc" path="res://scenes/collectibles/collectible.gd" id="1_2fame"]
+[ext_resource type="Texture2D" uid="uid://i16eqlijtltn" path="res://assets/sprites/spritesheets/spritesheet-tiles-default.png" id="1_a5mbw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sk5k4"]
+atlas = ExtResource("1_a5mbw")
+region = Rect2(1040, 65, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oc4kc"]
+atlas = ExtResource("1_a5mbw")
+region = Rect2(1105, 65, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s8va5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sk5k4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oc4kc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6761a"]
+size = Vector2(39, 46)
+
+[node name="Collectible" type="Area2D" groups=["Collectibles"]]
+collision_layer = 2
+script = ExtResource("1_2fame")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_s8va5")
+autoplay = "default"
+frame_progress = 0.5047907
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 2)
+shape = SubResource("RectangleShape2D_6761a")
+debug_color = Color(0.23529412, 1, 0, 0.41960785)
+metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
