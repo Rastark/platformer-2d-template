@@ -14,13 +14,13 @@ extends CharacterBody2D
 @export var attack_animation_duration : float = 0.5
 @export var attack_length : float = 100.0
 
-## Damage paramers. If turned on, the enemy will able to deal damage 
-## to damage-subsceptible entities.
+## Damage parameters. If turned on, the enemy will able to deal damage 
+## to damage-susceptible entities.
 @export_group("Damage")
 @export_subgroup("Damages")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "Deals Damage") var damages : bool = false
 
-## Damage paramers. If turned on, the enemy will be able to trigger knockback behaviors 
+## Damage parameters. If turned on, the enemy will be able to trigger knockback behaviors 
 ## on knockback-subsceptible entities.
 @export_group("Knockback")
 @export_subgroup("Knocks back")

@@ -13,8 +13,9 @@ const JUMP_VELOCITY = -600.0
 
 ## Self-knockback parameters
 @export_group("Knockback")
-## Base strength at which knockbacks get applied to the player character. Measured i
+## Base strength at which knockbacks get applied to the player character (px/s)
 @export var knockback_base_strength : float = 500.0
+## Duration of the physics override of the knockback
 @export var knockback_duration : float = 0.25
 ## Allows to influence the knockback angle. Every 0.5 corresponds to roughly 45° rotation on Y axis. 
 ## Positive goes toward ceiling and negative toward floor. 
@@ -39,18 +40,13 @@ var _knockback_force_multiplier : float = 1.0
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 
-# Runtime initialization. Happens AFTER @onready
-func _ready() -> void:
-	pass
-
-
 # Physics logic override. Should contain every calculation involving the physics engine.
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	## Disables input while the knockback is sti
+	## Disables input detection while for knockback duration time.
 	if knockback_timer.time_left > 0.0:
 		velocity = _knockback_direction * knockback_base_strength * _knockback_force_multiplier
 	else:
