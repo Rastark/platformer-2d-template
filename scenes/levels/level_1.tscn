@@ -205,11 +205,17 @@ texture_region_size = Vector2i(64, 64)
 14:9/0 = 0
 15:9/0 = 0
 16:9/0 = 0
-16:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 20.32106, -32, 20.32106)
+16:9/0/z_index = -1
+16:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, -8, -32, -8)
+16:9/0/physics_layer_0/polygon_0/one_way = true
 17:9/0 = 0
-17:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 20.32106, -32, 20.32106)
+17:9/0/z_index = -1
+17:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, -8, -32, -8)
+17:9/0/physics_layer_0/polygon_0/one_way = true
 0:10/0 = 0
-0:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 20.32106, -32, 20.32106)
+0:10/0/z_index = -1
+0:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, -8, -32, -8)
+0:10/0/physics_layer_0/polygon_0/one_way = true
 1:10/0 = 0
 1:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 2:10/0 = 0
@@ -360,10 +366,7 @@ texture_region_size = Vector2i(64, 64)
 [sub_resource type="TileSet" id="TileSet_oc4kc"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 4
-physics_layer_0/collision_mask = 7
-terrain_set_0/mode = 0
-terrain_set_0/terrain_0/name = "Terrain 0"
-terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+physics_layer_0/collision_mask = 15
 sources/0 = SubResource("TileSetAtlasSource_mm8aj")
 pattern_0 = SubResource("TileMapPattern_mm8aj")
 pattern_1 = SubResource("TileMapPattern_wtwp4")
@@ -390,37 +393,6 @@ corner_radius_bottom_left = 10
 script = ExtResource("1_sk5k4")
 player_spawn_marker = NodePath("StartingPositionMarker")
 
-[node name="PlayerCharacter" parent="." instance=ExtResource("1_nsrm0")]
-position = Vector2(184, 451)
-collision_mask = 7
-
-[node name="TerrainTileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAACAAgAAAABAAoAAAADAAgAAAACAAoAAAAEAAgAAAACAAoAAAAFAAgAAAAFAAoAAAAMAAUAAAAQAAkAAAANAAUAAAARAAkAAAAOAAUAAAARAAkAAAAPAAUAAAAAAAoAAAAYAAgAAAACAAoAAAAZAAgAAAACAAoAAAAPAAgAAAABAAoAAAAQAAgAAAACAAoAAAARAAgAAAACAAoAAAASAAgAAAAFAAoAAAAWAAgAAAABAAoAAAAbAAgAAAAFAAoAAAAXAAgAAAACAAoAAAAaAAgAAAACAAoAAAAJAAgAAAABAAoAAAAKAAgAAAACAAoAAAALAAgAAAACAAoAAAAMAAgAAAAFAAoAAAA=")
-tile_set = SubResource("TileSet_oc4kc")
-
-[node name="DeathArea" type="Area2D" parent="." groups=["DeathAreas"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathArea"]
-position = Vector2(1480, 646)
-shape = SubResource("SegmentShape2D_sk5k4")
-debug_color = Color(0.99167866, 0, 0.2684764, 0.41960785)
-
-[node name="Checkpoint" parent="." instance=ExtResource("4_mm8aj")]
-position = Vector2(1165, 480)
-
-[node name="Goal" type="Area2D" parent="."]
-position = Vector2(1754, 480)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Goal"]
-sprite_frames = ExtResource("5_wtwp4")
-animation = &"inactive"
-autoplay = "inactive"
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
-shape = SubResource("RectangleShape2D_gmpev")
-metadata/_edit_lock_ = true
-
 [node name="SkyParallax2D" type="Parallax2D" parent="."]
 z_index = -10
 scroll_scale = Vector2(0, 0)
@@ -428,12 +400,12 @@ repeat_size = Vector2(256, 256)
 repeat_times = 10
 
 [node name="SkyBackground" type="Sprite2D" parent="SkyParallax2D"]
-position = Vector2(128, 128)
 texture = ExtResource("7_oc4kc")
+centered = false
 
 [node name="HillsParallax2D" type="Parallax2D" parent="."]
-z_index = -10
-scroll_scale = Vector2(0.55, 0.55)
+z_index = -9
+scroll_scale = Vector2(0.2, 0.2)
 repeat_size = Vector2(255, 0)
 repeat_times = 10
 
@@ -454,6 +426,37 @@ texture = ExtResource("7_wtwp4")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 107.5, 255, 148)
+
+[node name="TerrainTileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAACAAgAAAABAAoAAAADAAgAAAACAAoAAAAEAAgAAAACAAoAAAAFAAgAAAAFAAoAAAAMAAUAAAAQAAkAAAANAAUAAAARAAkAAAAOAAUAAAARAAkAAAAPAAUAAAAAAAoAAAAYAAgAAAACAAoAAAAZAAgAAAACAAoAAAAPAAgAAAABAAoAAAAQAAgAAAACAAoAAAARAAgAAAACAAoAAAASAAgAAAAFAAoAAAAWAAgAAAABAAoAAAAbAAgAAAAFAAoAAAAXAAgAAAACAAoAAAAaAAgAAAACAAoAAAAJAAgAAAABAAoAAAAKAAgAAAACAAoAAAALAAgAAAACAAoAAAAMAAgAAAAFAAoAAAA=")
+tile_set = SubResource("TileSet_oc4kc")
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("1_nsrm0")]
+position = Vector2(184, 451)
+collision_mask = 7
+
+[node name="DeathArea" type="Area2D" parent="." groups=["DeathAreas"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathArea"]
+position = Vector2(1480, 646)
+shape = SubResource("SegmentShape2D_sk5k4")
+debug_color = Color(0.99167866, 0, 0.2684764, 0.41960785)
+
+[node name="Checkpoint" parent="." instance=ExtResource("4_mm8aj")]
+position = Vector2(1165, 480)
+
+[node name="Goal" type="Area2D" parent="."]
+position = Vector2(1754, 480)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Goal"]
+sprite_frames = ExtResource("5_wtwp4")
+animation = &"active"
+autoplay = "active"
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
+shape = SubResource("RectangleShape2D_gmpev")
+metadata/_edit_lock_ = true
 
 [node name="StartingPositionMarker" type="Marker2D" parent="."]
 position = Vector2(260, 466)
@@ -492,6 +495,7 @@ position = Vector2(702, 480)
 
 [node name="LadybugEnemyCharacter" parent="EnemyManager" instance=ExtResource("15_iwr0g")]
 position = Vector2(1750, 480)
+push_strength = 1.0
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 

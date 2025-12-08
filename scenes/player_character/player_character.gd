@@ -11,15 +11,14 @@ const SPEED = 300.0
 ## Jump speed (px/s) of the character
 const JUMP_VELOCITY = -600.0
 
-## Self-knockback parameters
+#region knockback exported variables
+## Knockback parameters - controls how the player gets pushed back when hit
 @export_group("Knockback")
-## Base strength at which knockbacks get applied to the player character (px/s)
-@export var knockback_base_strength : float = 500.0
-## Duration of the physics override of the knockback
-@export var knockback_duration : float = 0.25
-## Allows to influence the knockback angle. Every 0.5 corresponds to roughly 45° rotation on Y axis. 
-## Positive goes toward ceiling and negative toward floor. 
-@export_range(-1.0, 1.0, 0.01) var knockback_angle_correction : float = 0.5
+## How hard the player gets pushed back when hit (pixels/second)
+@export_range(100, 1000, 50) var knockback_strength : float = 400.0
+## How long the knockback lasts (seconds)
+@export_range(0.1, 1.0, 0.05) var knockback_duration : float = 0.25
+#endregion
 
 #region Private variables - should be used only internally by the class
 var _knockback_direction : Vector2 = Vector2.ZERO
@@ -28,27 +27,26 @@ var _knockback_force_multiplier : float = 1.0
 
 ## Physics collision shape
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
-
-## Base knockback duration
-@onready var knockback_timer: Timer = $KnockbackTimer
-
 ## Player character's sprite with baked-in animation logic
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-
-# Scene variables
-# SFX
+# SFX player
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
+#region knockback onready variables
+## Base knockback duration
+@onready var knockback_timer: Timer = $KnockbackTimer
+#endregion
 
-# Physics logic override. Should contain every calculation involving the physics engine.
+
+# Physics logic - runs every physics frame
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	## Disables input detection while for knockback duration time.
+	## Disables input detection while knockback is active.
 	if knockback_timer.time_left > 0.0:
-		velocity = _knockback_direction * knockback_base_strength * _knockback_force_multiplier
+		velocity = _knockback_direction * knockback_strength * _knockback_force_multiplier
 	else:
 		# Handle jump.
 		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
@@ -90,22 +88,21 @@ func die() -> void:
 	died.emit()
 
 
-#region Optional knocked-back logic
-## Used to start the knocked-back physical behavior. The "triggerer" of the behavior needs to specify at
-## least its position and can optionally add a stronger force multiplier. 
+#region Knockback logic
+## Pushes the player away from a source position. Called by enemies when they hit the player.
+## The optional force_multiplier makes some enemies push harder than others.
 func apply_knockback(
-		source_position : Vector2, 
-		knockback_force_multiplier : float = 1.0
- )-> void:
-	# Saving internal values accordingly to the last knockback received
-	# Calculates normalized direction according to the source of the knockback.
+		source_position : Vector2,
+		force_multiplier : float = 1.0
+) -> void:
+	# Calculate push direction: away from whatever hit the player
 	_knockback_direction = (global_position - source_position).normalized()
-	# Regulate vertical angle.
-	_knockback_direction.y -= knockback_angle_correction
+	# Always push slightly upward for better game feel
+	_knockback_direction.y = -0.5
 	_knockback_direction = _knockback_direction.normalized()
-	_knockback_force_multiplier = knockback_force_multiplier
-	
-	# Applies exported timer parameters
+	_knockback_force_multiplier = force_multiplier
+
+	# Start the knockback timer
 	knockback_timer.wait_time = knockback_duration
 	knockback_timer.start()
 #endregion

@@ -52,7 +52,6 @@ height = 104.0
 [node name="PlayerCharacter" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 15
 script = ExtResource("1_4l8wl")
-knockback_angle_correction = 0.19999999999999996
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_iav0o")

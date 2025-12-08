@@ -63,7 +63,7 @@ func complete_level() -> void:
 	_level_completed = true
 
 
-## Sets up and hows level completion UI.
+## Sets up and shows level completion UI.
 func setup_and_show_win_screen() -> void:
 	var score = score_manager.total_score
 	win_screen.show()
@@ -113,7 +113,7 @@ func _on_goal_body_entered(body: Node2D) -> void:
 ## Making it respawn to its last checkpoint if they reached one or resetting the level entirely otherwise
 func _on_player_character_died() -> void:
 	
-	# Checks if the player reached a checkpoint by looking at the custom respawn positiopn
+	# Checks if the player reached a checkpoint by looking at the custom respawn position
 	var checkpoint_reached : bool = _player_respawn_global_position != Vector2.ZERO
 	
 	# If the level is completed or the player has not reached any checkpoint, reset it completely

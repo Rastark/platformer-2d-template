@@ -1,7 +1,7 @@
 class_name ScoreManager
 extends Node
 
-## Signals the score being updates to external entities
+## Signals when the score changes
 signal score_updated(new_value : int)
 
 ## Total score value

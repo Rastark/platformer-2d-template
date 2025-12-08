@@ -8,7 +8,7 @@ var checkpoint_items : Array[PackedScene] = []
 #region initial setup
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Saving 
+	# Save initial state of all children for level reset
 	for child in get_children():
 		var p_scene = PackedScene.new()
 		p_scene.pack(child) 
