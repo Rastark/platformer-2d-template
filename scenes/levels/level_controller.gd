@@ -9,9 +9,6 @@ extends Node2D
 @export var player_spawn_marker : Marker2D
 
 # Variables
-## Custom respawn position. Automatically saved on reaching a checkpoint. The player will restart.
-var _player_respawn_global_position : Vector2 = Vector2.ZERO
-
 ## Gets set to true upon completing the level.
 var _level_completed : bool = false
 
@@ -26,12 +23,6 @@ var _level_completed : bool = false
 # Score
 ## Used to manage the level score.
 @onready var score_manager: ScoreManager = $ScoreManager
-
-# Optional Managers
-## Used to manage the collectible respawn
-@onready var collectible_manager: BaseManager = $CollectibleManager
-## Used to manage the enemy respawn
-@onready var enemy_manager: BaseManager = $EnemyManager
 
 # UI
 ## Label for the actual level score value on the user interface.
@@ -50,14 +41,9 @@ func _ready() -> void:
 
 
 #region Functions
-## Spawns the player accordingly to its last checkpoint position.
+## Spawns the player accordingly to its starting position marker.
 func spawn_player() -> void:
-	# If there's no saved respawn position, move the character to the start of the level
-	if _player_respawn_global_position == Vector2.ZERO:
-		player_character.global_position = player_spawn_marker.global_position
-	# Otherwise, move it to the saved position
-	else:
-		player_character.global_position = _player_respawn_global_position
+	player_character.global_position = player_spawn_marker.global_position
 
 
 ## Shows level completion UI and marks the level as completed.
@@ -104,8 +90,7 @@ func _on_goal_body_entered(body: Node2D) -> void:
 		complete_level()
 
 
-## Activates when the player dies. 
-## Making it respawn to its last checkpoint if they reached one or resetting the level entirely otherwise
+## Activates when the player dies.
 func _on_player_character_died() -> void:
 	reload_level()
 #endregion

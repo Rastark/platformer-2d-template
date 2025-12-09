@@ -14,13 +14,12 @@ func _ready() -> void:
 #endregion
 
 
-## Resets the score to 0 (to_checkpoint = false) or 
-## to the last checkpoint_value (to_checkpoint = true)
+## Resets the score to 0
 func reset_score() -> void:
 	total_score = 0
 
 
-## Used to connect to collectible signals on scene creation and on checkpoint restoration.
+## Used to connect to collectible signals on scene creation.
 func connect_collectibles() -> void:
 	var collectibles = get_tree().get_nodes_in_group("Collectibles")
 	for item in collectibles:
