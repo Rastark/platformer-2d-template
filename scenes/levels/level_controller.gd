@@ -5,7 +5,7 @@ extends Node2D
 
 # Dependencies
 # Player
-## Determines the position at which the player spawns if the the level is not completed and no checkpoints have been reached.
+## Determines the position at which the player spawns if the the level is not completed
 @export var player_spawn_marker : Marker2D
 
 # Variables
@@ -19,6 +19,9 @@ var _level_completed : bool = false
 # Player
 ## Reference to the PlayerCharacter. Used mainly for respawning reasons.
 @onready var player_character: PlayerCharacter = $PlayerCharacter
+
+# Goal Detection Area
+@onready var goal: Area2D = $Goal
 
 # Score
 ## Used to manage the level score.
@@ -87,15 +90,6 @@ func _on_score_manager_score_updated(new_value: int) -> void:
 	score_points_label.text = str(new_value)
 
 
-## Saves checkpoint data.
-func _on_checkpoint_activated(checkpoint_global_position : Vector2) -> void:
-	_player_respawn_global_position = checkpoint_global_position
-	score_manager.save_checkpoint()
-	collectible_manager.save_item_checkpoint()
-	enemy_manager.save_item_checkpoint()
-#endregion
-
-
 ## Activates when the player hits an area capable of killing it (DeathAreas) group. Commands the
 ## player character to trigger its death process.
 func _on_death_area_body_entered(body: Node2D) -> void:
@@ -106,36 +100,12 @@ func _on_death_area_body_entered(body: Node2D) -> void:
 ## Activates when the goal area is reached. Completes the level.
 func _on_goal_body_entered(body: Node2D) -> void:
 	if body == player_character:
+		goal.activate()
 		complete_level()
 
 
 ## Activates when the player dies. 
 ## Making it respawn to its last checkpoint if they reached one or resetting the level entirely otherwise
 func _on_player_character_died() -> void:
-	
-	# Checks if the player reached a checkpoint by looking at the custom respawn position
-	var checkpoint_reached : bool = _player_respawn_global_position != Vector2.ZERO
-	
-	# If the level is completed or the player has not reached any checkpoint, reset it completely
-	if _level_completed or not checkpoint_reached:
-		reload_level()
-		return
-	
-	#region Respawn to Checkpoint - plays only if the player reached a checkpoint
-	# Hide the level completion UI
-	hide_win_screen()
-
-	# Reset Managers to checkpoint state
-	collectible_manager.reset_items(checkpoint_reached)
-	enemy_manager.reset_items(checkpoint_reached)
-	
-	# Reset Score to checkpoint state
-	score_manager.reset_score(checkpoint_reached)
-	score_manager.connect_collectibles()
-	
-	# Reset UI to checkpoint state
-	score_points_label.text = str(score_manager.total_score)
-	
-	# Respawn the PlayerCharacter
-	spawn_player()
+	reload_level()
 #endregion

@@ -22,6 +22,7 @@ frame_progress = 0.10763652
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_j0bte")
+one_way_collision = true
 metadata/_edit_lock_ = true
 
 [node name="WallCheckRayCast" type="RayCast2D" parent="."]

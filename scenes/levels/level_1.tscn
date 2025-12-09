@@ -1,14 +1,13 @@
-[gd_scene load_steps=23 format=4 uid="uid://bsg62ua06dv30"]
+[gd_scene load_steps=22 format=4 uid="uid://bsg62ua06dv30"]
 
 [ext_resource type="PackedScene" uid="uid://sylyhk18yl4b" path="res://scenes/player_character/player_character.tscn" id="1_nsrm0"]
 [ext_resource type="Script" uid="uid://b6kdjibyfb8uh" path="res://scenes/levels/level_controller.gd" id="1_sk5k4"]
 [ext_resource type="Script" uid="uid://cdbocnfkumuwg" path="res://scripts/score_manager.gd" id="4_6761a"]
 [ext_resource type="Texture2D" uid="uid://i16eqlijtltn" path="res://assets/sprites/spritesheets/spritesheet-tiles-default.png" id="4_dnkej"]
-[ext_resource type="PackedScene" uid="uid://bvc13a84b7pig" path="res://scenes/triggerable_areas/triggerable_area.tscn" id="4_mm8aj"]
 [ext_resource type="PackedScene" uid="uid://d3bi8xdsrkt10" path="res://scenes/collectibles/collectible.tscn" id="4_x42e6"]
 [ext_resource type="SpriteFrames" uid="uid://d18pwmt2h772t" path="res://data/sprite_frames/goal_flag_sprite_frames.tres" id="5_wtwp4"]
-[ext_resource type="Script" uid="uid://dngt6o2jtjj15" path="res://scripts/base_manager.gd" id="6_oc4kc"]
 [ext_resource type="Texture2D" uid="uid://gwcs31dvs2n7" path="res://assets/sprites/backgrounds/background_fade_hills.png" id="7_iwr0g"]
+[ext_resource type="Script" uid="uid://cxxga8acoryiw" path="res://scenes/levels/goal.gd" id="7_mm8aj"]
 [ext_resource type="Texture2D" uid="uid://c6a2isr4b601" path="res://assets/sprites/backgrounds/background_solid_sky.png" id="7_oc4kc"]
 [ext_resource type="Texture2D" uid="uid://c5vp3c5ym0mte" path="res://assets/sprites/backgrounds/background_clouds.png" id="7_wtwp4"]
 [ext_resource type="PackedScene" uid="uid://clarqqtwrfpf2" path="res://scenes/collectibles/coins/silver_coin_collectible.tscn" id="8_dga24"]
@@ -202,11 +201,12 @@ texture_region_size = Vector2i(64, 64)
 11:9/0 = 0
 12:9/0 = 0
 13:9/0 = 0
+13:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 14:9/0 = 0
 15:9/0 = 0
 16:9/0 = 0
 16:9/0/z_index = -1
-16:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, -8, -32, -8)
+16:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 16, -32, 16)
 16:9/0/physics_layer_0/polygon_0/one_way = true
 17:9/0 = 0
 17:9/0/z_index = -1
@@ -393,6 +393,9 @@ corner_radius_bottom_left = 10
 script = ExtResource("1_sk5k4")
 player_spawn_marker = NodePath("StartingPositionMarker")
 
+[node name="StartingPositionMarker" type="Marker2D" parent="."]
+position = Vector2(260, 466)
+
 [node name="SkyParallax2D" type="Parallax2D" parent="."]
 z_index = -10
 scroll_scale = Vector2(0, 0)
@@ -442,59 +445,52 @@ position = Vector2(1480, 646)
 shape = SubResource("SegmentShape2D_sk5k4")
 debug_color = Color(0.99167866, 0, 0.2684764, 0.41960785)
 
-[node name="Checkpoint" parent="." instance=ExtResource("4_mm8aj")]
-position = Vector2(1165, 480)
-
 [node name="Goal" type="Area2D" parent="."]
 position = Vector2(1754, 480)
+script = ExtResource("7_mm8aj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Goal"]
 sprite_frames = ExtResource("5_wtwp4")
-animation = &"active"
-autoplay = "active"
+animation = &"inactive"
+autoplay = "inactive"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
 shape = SubResource("RectangleShape2D_gmpev")
 metadata/_edit_lock_ = true
 
-[node name="StartingPositionMarker" type="Marker2D" parent="."]
-position = Vector2(260, 466)
-
 [node name="ScoreManager" type="Node" parent="."]
 script = ExtResource("4_6761a")
 
-[node name="CollectibleManager" type="Node2D" parent="."]
-script = ExtResource("6_oc4kc")
+[node name="CollectibleItems" type="Node2D" parent="."]
 
-[node name="Coin2" parent="CollectibleManager" instance=ExtResource("4_x42e6")]
+[node name="Coin2" parent="CollectibleItems" instance=ExtResource("4_x42e6")]
 position = Vector2(605, 487)
 
-[node name="Coin3" parent="CollectibleManager" instance=ExtResource("4_x42e6")]
+[node name="Coin3" parent="CollectibleItems" instance=ExtResource("4_x42e6")]
 position = Vector2(1042, 487)
 
-[node name="Coin4" parent="CollectibleManager" instance=ExtResource("4_x42e6")]
+[node name="Coin4" parent="CollectibleItems" instance=ExtResource("4_x42e6")]
 position = Vector2(660, 365)
 
-[node name="Coin5" parent="CollectibleManager" instance=ExtResource("4_x42e6")]
+[node name="Coin5" parent="CollectibleItems" instance=ExtResource("4_x42e6")]
 position = Vector2(760, 237)
 
-[node name="SilverCoinCollectible" parent="CollectibleManager" instance=ExtResource("8_dga24")]
+[node name="SilverCoinCollectible" parent="CollectibleItems" instance=ExtResource("8_dga24")]
 position = Vector2(900, 288)
 collision_layer = 1
 
-[node name="GoldCoinCollectible" parent="CollectibleManager" instance=ExtResource("9_qxy0u")]
+[node name="GoldCoinCollectible" parent="CollectibleItems" instance=ExtResource("9_qxy0u")]
 position = Vector2(1695, 489)
 collision_layer = 1
 
-[node name="EnemyManager" type="Node2D" parent="."]
-script = ExtResource("6_oc4kc")
+[node name="Enemies" type="Node2D" parent="."]
 
-[node name="SlimeEnemyCharacter" parent="EnemyManager" instance=ExtResource("14_wtwp4")]
+[node name="SlimeEnemyCharacter" parent="Enemies" instance=ExtResource("14_wtwp4")]
 position = Vector2(702, 480)
 
-[node name="LadybugEnemyCharacter" parent="EnemyManager" instance=ExtResource("15_iwr0g")]
-position = Vector2(1750, 480)
+[node name="LadybugEnemyCharacter" parent="Enemies" instance=ExtResource("15_iwr0g")]
+position = Vector2(1749, 480)
 push_strength = 1.0
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
@@ -570,6 +566,5 @@ vertical_alignment = 1
 
 [connection signal="died" from="PlayerCharacter" to="." method="_on_player_character_died"]
 [connection signal="body_entered" from="DeathArea" to="." method="_on_death_area_body_entered"]
-[connection signal="activated" from="Checkpoint" to="." method="_on_checkpoint_activated"]
 [connection signal="body_entered" from="Goal" to="." method="_on_goal_body_entered"]
 [connection signal="score_updated" from="ScoreManager" to="." method="_on_score_manager_score_updated"]

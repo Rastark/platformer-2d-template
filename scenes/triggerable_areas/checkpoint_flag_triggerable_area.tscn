@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0u8viki4rf4p"]
-
-[ext_resource type="PackedScene" uid="uid://bvc13a84b7pig" path="res://scenes/triggerable_areas/triggerable_area.tscn" id="1_s2g66"]
-
-[node name="CheckpointFlagTriggerableArea" instance=ExtResource("1_s2g66")]
-
-[node name="AnimatedSprite2D" parent="." index="0"]
-animation = &"active"
