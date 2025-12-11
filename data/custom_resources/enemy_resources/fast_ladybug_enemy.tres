@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://b1jdga6xhchnx"]
+
+[ext_resource type="Script" uid="uid://bxwx0huleav6b" path="res://data/custom_resources/enemy_resources/enemy_resource.gd" id="1_0hlqi"]
+[ext_resource type="SpriteFrames" uid="uid://bod4v1781xg6n" path="res://data/sprite_frames/enemies/ladybug_enemy_sprite_framestres.tres" id="2_2g2r8"]
+
+[resource]
+script = ExtResource("1_0hlqi")
+speed = 500.0
+sprite_frames = ExtResource("2_2g2r8")
+metadata/_custom_type_script = "uid://bxwx0huleav6b"

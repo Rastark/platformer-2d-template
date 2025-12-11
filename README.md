@@ -23,7 +23,6 @@ A simple 2D platformer template for Level Design students. Build your own levels
 | **slime_enemy_character.tscn** | `scenes/enemy_characters/` | Enemy that pushes you back |
 | **ladybug_enemy_character.tscn** | `scenes/enemy_characters/` | Enemy that hurts AND pushes you |
 | **bronze/silver/gold_coin_collectible.tscn** | `scenes/collectibles/coins/` | Coins worth 1, 5, or 10 points |
-| **checkpoint_flag_triggerable_area.tscn** | `scenes/triggerable_areas/` | Saves your progress |
 
 ---
 
@@ -70,14 +69,14 @@ A simple 2D platformer template for Level Design students. Build your own levels
 2. Drag a coin scene into your level
 3. Position it where players can reach it
 
-### Adding Checkpoints
-1. Navigate to `scenes/triggerable_areas/`
-2. Drag `checkpoint_flag_triggerable_area.tscn` into your level
-3. Position it at a safe location
-
 ### Setting the Start Position
-1. Find `StartingPositionMarker` in the Scene tree
+1. Find `PlayerSpawnMarker` in the Scene tree
 2. Move it to where you want the player to spawn
+
+### Setting the Goal
+1. Find `Goal` in the Scene tree
+2. Move it to where you want the level to end
+3. When the player reaches the goal, the win screen appears!
 
 ---
 
@@ -95,10 +94,10 @@ You can create your own variants by duplicating an enemy scene and changing its 
 ## Tips for Level Design
 
 - **Test often**: Press F5 to play your level
-- **Place checkpoints**: Put them after difficult sections
 - **Vary enemy placement**: Mix slimes and ladybugs
 - **Create flow**: Guide players with coin trails
 - **Use height**: Platforms at different levels add interest
+- **Place the goal**: Make sure players can reach the finish!
 
 ---
 
@@ -106,15 +105,18 @@ You can create your own variants by duplicating an enemy scene and changing its 
 
 ```
 platformer-2d-template/
-├── assets/           # Images and sounds (don't edit)
-├── data/             # Animation data (don't edit)
-├── scenes/           # Game objects - WORK HERE!
-│   ├── collectibles/ # Coins and items
-│   ├── enemy_characters/ # Enemy types
-│   ├── levels/       # Your levels!
-│   ├── player_character/ # The player
-│   └── triggerable_areas/ # Checkpoints
-└── scripts/          # Code (don't edit)
+├── assets/              # Images and sounds (don't edit)
+│   ├── audio/           # Sound effects
+│   └── sprites/         # Character and tile sprites
+├── data/                # Animation data (don't edit)
+│   ├── custom_resources/# Enemy variant resources
+│   └── sprite_frames/   # Animation frame definitions
+├── scenes/              # Game objects - WORK HERE!
+│   ├── collectibles/    # Coins and items
+│   ├── enemy_characters/# Enemy types
+│   ├── levels/          # Your levels!
+│   └── player_character/# The player
+└── scripts/             # Code (don't edit)
 ```
 
 ---
@@ -125,6 +127,15 @@ platformer-2d-template/
 |-----|--------|
 | **Arrow Keys** or **WASD** | Move left/right |
 | **Space** or **W** or **Up** | Jump |
+
+---
+
+## How the Game Works
+
+1. **Start**: Player spawns at `PlayerSpawnMarker`
+2. **Play**: Collect coins, avoid/overcome enemies
+3. **Win**: Reach the goal flag to see your final score
+4. **Lose**: Fall into hazards or get hurt by enemies = restart
 
 ---
 

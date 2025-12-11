@@ -24,6 +24,15 @@ extends CharacterBody2D
 @onready var ground_check_ray_cast: RayCast2D = $GroundCheckRayCast
 
 
+@export var external_resource : EnemyResource
+
+
+func _ready() -> void:
+	if is_instance_valid(external_resource):
+		speed = external_resource.speed
+		animated_sprite_2d.sprite_frames = external_resource.sprite_frames
+
+
 # Physics logic - runs every physics frame
 func _physics_process(delta: float) -> void:
 	# Turn around when reaching a wall or platform edge

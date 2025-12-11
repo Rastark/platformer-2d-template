@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://bsg62ua06dv30"]
+[gd_scene load_steps=23 format=4 uid="uid://bsg62ua06dv30"]
 
 [ext_resource type="PackedScene" uid="uid://sylyhk18yl4b" path="res://scenes/player_character/player_character.tscn" id="1_nsrm0"]
 [ext_resource type="Script" uid="uid://b6kdjibyfb8uh" path="res://scenes/levels/level_controller.gd" id="1_sk5k4"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c5vp3c5ym0mte" path="res://assets/sprites/backgrounds/background_clouds.png" id="7_wtwp4"]
 [ext_resource type="PackedScene" uid="uid://clarqqtwrfpf2" path="res://scenes/collectibles/coins/silver_coin_collectible.tscn" id="8_dga24"]
 [ext_resource type="PackedScene" uid="uid://bp86yp4p5lhnb" path="res://scenes/collectibles/coins/gold_coin_collectible.tscn" id="9_qxy0u"]
+[ext_resource type="Resource" uid="uid://b1jdga6xhchnx" path="res://data/custom_resources/enemy_resources/fast_ladybug_enemy.tres" id="10_wtwp4"]
 [ext_resource type="PackedScene" uid="uid://c1uqgu0uf0j85" path="res://scenes/enemy_characters/slime_enemy_character.tscn" id="14_wtwp4"]
 [ext_resource type="PackedScene" uid="uid://dhfwgkuvpmwya" path="res://scenes/enemy_characters/ladybug_enemy_character.tscn" id="15_iwr0g"]
 
@@ -463,6 +464,7 @@ metadata/_edit_lock_ = true
 
 [node name="SlimeEnemyCharacter" parent="Enemies" instance=ExtResource("14_wtwp4")]
 position = Vector2(702, 480)
+external_resource = ExtResource("10_wtwp4")
 
 [node name="LadybugEnemyCharacter" parent="Enemies" instance=ExtResource("15_iwr0g")]
 position = Vector2(1749, 480)
